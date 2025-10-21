@@ -24,7 +24,7 @@ def generate_graph_seq2seq_io_data(
     # x: (epoch_size, input_length, num_nodes, input_dim)
     # y: (epoch_size, output_length, num_nodes, output_dim)
     """
-
+    print('enter gene_graph')
     num_samples, num_nodes = df.shape
     data = np.expand_dims(df.values, axis=-1)
     data_list = [data]
@@ -54,7 +54,9 @@ def generate_graph_seq2seq_io_data(
 
 
 def generate_train_val_test(args):
+    print('enter')
     df = pd.read_hdf(args.traffic_df_filename)
+    print('read df')
     # 0 is the latest observed sample.
     x_offsets = np.sort(
         # np.concatenate(([-week_size + 1, -day_size + 1], np.arange(-11, 1, 1)))
@@ -64,6 +66,8 @@ def generate_train_val_test(args):
     y_offsets = np.sort(np.arange(1, 13, 1))
     # x: (num_samples, input_length, num_nodes, input_dim)
     # y: (num_samples, output_length, num_nodes, output_dim)
+
+    print('generating seq')
     x, y = generate_graph_seq2seq_io_data(
         df,
         x_offsets=x_offsets,
