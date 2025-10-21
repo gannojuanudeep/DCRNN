@@ -23,8 +23,10 @@ def main(args):
         tf_config.gpu_options.allow_growth = True
         with tf.Session(config=tf_config) as sess:
             supervisor = DCRNNSupervisor(adj_mx=adj_mx, **supervisor_config)
-
+            print("Starting training... in dcrnn_train.py")
             supervisor.train(sess=sess)
+            print("Starting evaluation... in dcrnn_train.py")
+            supervisor.evaluate(sess=sess)
 
 
 if __name__ == '__main__':
